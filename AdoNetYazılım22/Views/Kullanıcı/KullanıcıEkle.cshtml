@@ -1,0 +1,24 @@
+﻿@using AdoNetYazılım22.Models
+@model kullanici
+@{
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("KullanıcıEkle", "Kullanıcı", FormMethod.Post))
+{
+    <div>
+
+        @Html.TextBoxFor(kullanici => kullanici.kullanici_adi)
+    </div>
+
+    <div>
+
+        @Html.PasswordFor(kullanici => kullanici.sifre)
+    </div>
+
+    <input type="submit" value="kayıt" />
+
+}
+
+

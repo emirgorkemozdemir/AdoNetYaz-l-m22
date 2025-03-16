@@ -16,7 +16,7 @@ namespace AdoNetYazılım22
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "Arac", action = "AracEkle" }
+                defaults: new { controller = "Kullanıcı", action = "KullanıcıEkle" }
             );
         }
     }

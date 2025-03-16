@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AracController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KullanıcıController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -256,6 +257,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Arac\AraclarıYukle.cshtml" />
     <Content Include="Views\Arac\AracEkle.cshtml" />
+    <Content Include="Views\Kullanıcı\KullanıcıEkle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
