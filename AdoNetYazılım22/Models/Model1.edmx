@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OtoServisDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="araclar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="musteri_id" Type="int" Nullable="false" />
+          <Property Name="plaka" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="saseno" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="marka" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="yil" Type="int" />
+          <Property Name="motor_hacmi" Type="nvarchar" MaxLength="20" />
+          <Property Name="yakit_turu" Type="nvarchar" MaxLength="20" />
+          <Property Name="vites_turu" Type="nvarchar" MaxLength="20" />
+          <Property Name="kasa_tipi" Type="nvarchar" MaxLength="20" />
+          <Property Name="renk" Type="nvarchar" MaxLength="30" />
+          <Property Name="km" Type="int" />
+          <Property Name="sigorta_durumu" Type="nvarchar" MaxLength="10" />
+          <Property Name="sigorta_bitis_tarihi" Type="date" />
+          <Property Name="muayene_bitis_tarihi" Type="date" />
+          <Property Name="ruhsat_sahibi" Type="nvarchar" MaxLength="100" />
+          <Property Name="aciklama" Type="nvarchar(max)" />
+          <Property Name="eklenme_tarihi" Type="datetime" />
+        </EntityType>
+        <EntityType Name="faturalar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="servis_id" Type="int" Nullable="false" />
+          <Property Name="musteri_id" Type="int" Nullable="false" />
+          <Property Name="toplam_tutar" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="fatura_tarihi" Type="datetime" />
+          <Property Name="odeme_durumu" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="kullanici">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullanici_adi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sifre" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="rol" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="musteriler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="soyad" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="adres" Type="nvarchar(max)" />
+          <Property Name="kayit_tarihi" Type="datetime" />
+        </EntityType>
+        <EntityType Name="personel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="soyad" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="pozisyon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="maas" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ise_giris_tarihi" Type="date" Nullable="false" />
+          <Property Name="aktif_durum" Type="bit" />
+        </EntityType>
+        <EntityType Name="personel_gunluk_aktiviteler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="personel_id" Type="int" Nullable="false" />
+          <Property Name="servis_id" Type="int" />
+          <Property Name="arac_id" Type="int" />
+          <Property Name="tarih" Type="date" Nullable="false" />
+          <Property Name="baslangic_saati" Type="time" Precision="7" Nullable="false" />
+          <Property Name="bitis_saati" Type="time" Precision="7" Nullable="false" />
+          <Property Name="yapilan_islem" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="is_durumu" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="personel_maas_odeme">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="personel_id" Type="int" Nullable="false" />
+          <Property Name="odeme_tarihi" Type="date" Nullable="false" />
+          <Property Name="maas_tutari" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="prim_tutari" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="aciklama" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="servis_kayitlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="arac_id" Type="int" Nullable="false" />
+          <Property Name="musteri_id" Type="int" Nullable="false" />
+          <Property Name="servis_tarihi" Type="datetime" />
+          <Property Name="servis_durumu" Type="nvarchar" MaxLength="20" />
+          <Property Name="toplam_ucret" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="aciklama" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="servis_parcalari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="servis_id" Type="int" Nullable="false" />
+          <Property Name="parca_id" Type="int" Nullable="false" />
+          <Property Name="miktar" Type="int" Nullable="false" />
+          <Property Name="toplam_fiyat" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sms_eposta_kayitlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="musteri_id" Type="int" Nullable="false" />
+          <Property Name="mesaj_tipi" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="icerik" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="gonderim_tarihi" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="yedek_parcalar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parca_adi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="parca_kodu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="marka" Type="nvarchar" MaxLength="50" />
+          <Property Name="stok_miktari" Type="int" />
+          <Property Name="birim_fiyat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="tedarikci" Type="nvarchar" MaxLength="100" />
+          <Property Name="eklenme_tarihi" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="OtoServisDBModelStoreContainer">
+          <EntitySet Name="araclar" EntityType="Self.araclar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="faturalar" EntityType="Self.faturalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kullanici" EntityType="Self.kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="musteriler" EntityType="Self.musteriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personel" EntityType="Self.personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personel_gunluk_aktiviteler" EntityType="Self.personel_gunluk_aktiviteler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personel_maas_odeme" EntityType="Self.personel_maas_odeme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="servis_kayitlari" EntityType="Self.servis_kayitlari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="servis_parcalari" EntityType="Self.servis_parcalari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sms_eposta_kayitlari" EntityType="Self.sms_eposta_kayitlari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="yedek_parcalar" EntityType="Self.yedek_parcalar" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OtoServisDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="araclar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="musteri_id" Type="Int32" Nullable="false" />
+          <Property Name="plaka" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="saseno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="marka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="yil" Type="Int32" />
+          <Property Name="motor_hacmi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="yakit_turu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="vites_turu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="kasa_tipi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="renk" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="km" Type="Int32" />
+          <Property Name="sigorta_durumu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="sigorta_bitis_tarihi" Type="DateTime" Precision="0" />
+          <Property Name="muayene_bitis_tarihi" Type="DateTime" Precision="0" />
+          <Property Name="ruhsat_sahibi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="eklenme_tarihi" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="faturalar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="servis_id" Type="Int32" Nullable="false" />
+          <Property Name="musteri_id" Type="Int32" Nullable="false" />
+          <Property Name="toplam_tutar" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="fatura_tarihi" Type="DateTime" Precision="3" />
+          <Property Name="odeme_durumu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="kullanici">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullanici_adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sifre" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rol" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="musteriler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="soyad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="kayit_tarihi" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="personel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="soyad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="pozisyon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="maas" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ise_giris_tarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="aktif_durum" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="personel_gunluk_aktiviteler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="personel_id" Type="Int32" Nullable="false" />
+          <Property Name="servis_id" Type="Int32" />
+          <Property Name="arac_id" Type="Int32" />
+          <Property Name="tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="baslangic_saati" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="bitis_saati" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="yapilan_islem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="is_durumu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="personel_maas_odeme">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="personel_id" Type="Int32" Nullable="false" />
+          <Property Name="odeme_tarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="maas_tutari" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="prim_tutari" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="servis_kayitlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="arac_id" Type="Int32" Nullable="false" />
+          <Property Name="musteri_id" Type="Int32" Nullable="false" />
+          <Property Name="servis_tarihi" Type="DateTime" Precision="3" />
+          <Property Name="servis_durumu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="toplam_ucret" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="servis_parcalari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="servis_id" Type="Int32" Nullable="false" />
+          <Property Name="parca_id" Type="Int32" Nullable="false" />
+          <Property Name="miktar" Type="Int32" Nullable="false" />
+          <Property Name="toplam_fiyat" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sms_eposta_kayitlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="musteri_id" Type="Int32" Nullable="false" />
+          <Property Name="mesaj_tipi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="icerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gonderim_tarihi" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="yedek_parcalar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parca_adi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="parca_kodu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="marka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="stok_miktari" Type="Int32" />
+          <Property Name="birim_fiyat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="tedarikci" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="eklenme_tarihi" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="OtoServisDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="araclars" EntityType="Self.araclar" />
+          <EntitySet Name="faturalars" EntityType="Self.faturalar" />
+          <EntitySet Name="kullanicis" EntityType="Self.kullanici" />
+          <EntitySet Name="musterilers" EntityType="Self.musteriler" />
+          <EntitySet Name="personels" EntityType="Self.personel" />
+          <EntitySet Name="personel_gunluk_aktiviteler" EntityType="Self.personel_gunluk_aktiviteler" />
+          <EntitySet Name="personel_maas_odeme" EntityType="Self.personel_maas_odeme" />
+          <EntitySet Name="servis_kayitlari" EntityType="Self.servis_kayitlari" />
+          <EntitySet Name="servis_parcalari" EntityType="Self.servis_parcalari" />
+          <EntitySet Name="sms_eposta_kayitlari" EntityType="Self.sms_eposta_kayitlari" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="yedek_parcalar" EntityType="Self.yedek_parcalar" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OtoServisDBModelStoreContainer" CdmEntityContainer="OtoServisDBEntities">
+          <EntitySetMapping Name="araclars">
+            <EntityTypeMapping TypeName="OtoServisDBModel.araclar">
+              <MappingFragment StoreEntitySet="araclar">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
+                <ScalarProperty Name="plaka" ColumnName="plaka" />
+                <ScalarProperty Name="saseno" ColumnName="saseno" />
+                <ScalarProperty Name="marka" ColumnName="marka" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="yil" ColumnName="yil" />
+                <ScalarProperty Name="motor_hacmi" ColumnName="motor_hacmi" />
+                <ScalarProperty Name="yakit_turu" ColumnName="yakit_turu" />
+                <ScalarProperty Name="vites_turu" ColumnName="vites_turu" />
+                <ScalarProperty Name="kasa_tipi" ColumnName="kasa_tipi" />
+                <ScalarProperty Name="renk" ColumnName="renk" />
+                <ScalarProperty Name="km" ColumnName="km" />
+                <ScalarProperty Name="sigorta_durumu" ColumnName="sigorta_durumu" />
+                <ScalarProperty Name="sigorta_bitis_tarihi" ColumnName="sigorta_bitis_tarihi" />
+                <ScalarProperty Name="muayene_bitis_tarihi" ColumnName="muayene_bitis_tarihi" />
+                <ScalarProperty Name="ruhsat_sahibi" ColumnName="ruhsat_sahibi" />
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+                <ScalarProperty Name="eklenme_tarihi" ColumnName="eklenme_tarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="faturalars">
+            <EntityTypeMapping TypeName="OtoServisDBModel.faturalar">
+              <MappingFragment StoreEntitySet="faturalar">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="servis_id" ColumnName="servis_id" />
+                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
+                <ScalarProperty Name="toplam_tutar" ColumnName="toplam_tutar" />
+                <ScalarProperty Name="fatura_tarihi" ColumnName="fatura_tarihi" />
+                <ScalarProperty Name="odeme_durumu" ColumnName="odeme_durumu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kullanicis">
+            <EntityTypeMapping TypeName="OtoServisDBModel.kullanici">
+              <MappingFragment StoreEntitySet="kullanici">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="kullanici_adi" ColumnName="kullanici_adi" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="musterilers">
+            <EntityTypeMapping TypeName="OtoServisDBModel.musteriler">
+              <MappingFragment StoreEntitySet="musteriler">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="kayit_tarihi" ColumnName="kayit_tarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personels">
+            <EntityTypeMapping TypeName="OtoServisDBModel.personel">
+              <MappingFragment StoreEntitySet="personel">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="pozisyon" ColumnName="pozisyon" />
+                <ScalarProperty Name="maas" ColumnName="maas" />
+                <ScalarProperty Name="ise_giris_tarihi" ColumnName="ise_giris_tarihi" />
+                <ScalarProperty Name="aktif_durum" ColumnName="aktif_durum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personel_gunluk_aktiviteler">
+            <EntityTypeMapping TypeName="OtoServisDBModel.personel_gunluk_aktiviteler">
+              <MappingFragment StoreEntitySet="personel_gunluk_aktiviteler">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="personel_id" ColumnName="personel_id" />
+                <ScalarProperty Name="servis_id" ColumnName="servis_id" />
+                <ScalarProperty Name="arac_id" ColumnName="arac_id" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="baslangic_saati" ColumnName="baslangic_saati" />
+                <ScalarProperty Name="bitis_saati" ColumnName="bitis_saati" />
+                <ScalarProperty Name="yapilan_islem" ColumnName="yapilan_islem" />
+                <ScalarProperty Name="is_durumu" ColumnName="is_durumu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personel_maas_odeme">
+            <EntityTypeMapping TypeName="OtoServisDBModel.personel_maas_odeme">
+              <MappingFragment StoreEntitySet="personel_maas_odeme">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="personel_id" ColumnName="personel_id" />
+                <ScalarProperty Name="odeme_tarihi" ColumnName="odeme_tarihi" />
+                <ScalarProperty Name="maas_tutari" ColumnName="maas_tutari" />
+                <ScalarProperty Name="prim_tutari" ColumnName="prim_tutari" />
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="servis_kayitlari">
+            <EntityTypeMapping TypeName="OtoServisDBModel.servis_kayitlari">
+              <MappingFragment StoreEntitySet="servis_kayitlari">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="arac_id" ColumnName="arac_id" />
+                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
+                <ScalarProperty Name="servis_tarihi" ColumnName="servis_tarihi" />
+                <ScalarProperty Name="servis_durumu" ColumnName="servis_durumu" />
+                <ScalarProperty Name="toplam_ucret" ColumnName="toplam_ucret" />
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="servis_parcalari">
+            <EntityTypeMapping TypeName="OtoServisDBModel.servis_parcalari">
+              <MappingFragment StoreEntitySet="servis_parcalari">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="servis_id" ColumnName="servis_id" />
+                <ScalarProperty Name="parca_id" ColumnName="parca_id" />
+                <ScalarProperty Name="miktar" ColumnName="miktar" />
+                <ScalarProperty Name="toplam_fiyat" ColumnName="toplam_fiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sms_eposta_kayitlari">
+            <EntityTypeMapping TypeName="OtoServisDBModel.sms_eposta_kayitlari">
+              <MappingFragment StoreEntitySet="sms_eposta_kayitlari">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
+                <ScalarProperty Name="mesaj_tipi" ColumnName="mesaj_tipi" />
+                <ScalarProperty Name="icerik" ColumnName="icerik" />
+                <ScalarProperty Name="gonderim_tarihi" ColumnName="gonderim_tarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OtoServisDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="yedek_parcalar">
+            <EntityTypeMapping TypeName="OtoServisDBModel.yedek_parcalar">
+              <MappingFragment StoreEntitySet="yedek_parcalar">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="parca_adi" ColumnName="parca_adi" />
+                <ScalarProperty Name="parca_kodu" ColumnName="parca_kodu" />
+                <ScalarProperty Name="marka" ColumnName="marka" />
+                <ScalarProperty Name="stok_miktari" ColumnName="stok_miktari" />
+                <ScalarProperty Name="birim_fiyat" ColumnName="birim_fiyat" />
+                <ScalarProperty Name="tedarikci" ColumnName="tedarikci" />
+                <ScalarProperty Name="eklenme_tarihi" ColumnName="eklenme_tarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,79 @@
+﻿@using AdoNetYazılım22.Models
+@model araclar
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AracEkle", "Arac",FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(arac => arac.musteri_id)
+        @Html.TextBoxFor(arac => arac.musteri_id)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.plaka)
+        @Html.TextBoxFor(arac => arac.plaka)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.saseno)
+        @Html.TextBoxFor(arac => arac.saseno)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.marka)
+        @Html.TextBoxFor(arac => arac.marka)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.model)
+        @Html.TextBoxFor(arac => arac.model)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.yil)
+        @Html.TextBoxFor(arac => arac.yil)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.motor_hacmi)
+        @Html.TextBoxFor(arac => arac.motor_hacmi)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.yakit_turu)
+        @Html.TextBoxFor(arac => arac.yakit_turu)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.vites_turu)
+        @Html.TextBoxFor(arac => arac.vites_turu)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.kasa_tipi)
+        @Html.TextBoxFor(arac => arac.kasa_tipi)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.renk)
+        @Html.TextBoxFor(arac => arac.renk)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.km)
+        @Html.TextBoxFor(arac => arac.km)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.sigorta_durumu)
+        @Html.TextBoxFor(arac => arac.sigorta_durumu)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.sigorta_bitis_tarihi)
+        @Html.TextBoxFor(arac => arac.sigorta_bitis_tarihi)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.muayene_bitis_tarihi)
+        @Html.TextBoxFor(arac => arac.muayene_bitis_tarihi)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.ruhsat_sahibi)
+        @Html.TextBoxFor(arac => arac.ruhsat_sahibi)
+    </div>
+    <div>
+        @Html.LabelFor(arac => arac.aciklama)
+        @Html.TextBoxFor(arac => arac.aciklama)
+    </div>
+    
+    <input type="submit" value="kaydet" />
+}
